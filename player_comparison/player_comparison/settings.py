@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-gsi^ywq8a=6f3vhgzr7*l1*@$j-t*q=pqr&$-w+5nhr2ahj($9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://nba-comparison.onrender.com']
 
 
 # Application definition
