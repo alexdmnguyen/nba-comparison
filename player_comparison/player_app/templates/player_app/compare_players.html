@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Player Comparison</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.3.0/typeahead.bundle.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tektur:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chela+One&display=swap" rel="stylesheet">
+
+    <style>
+        :root{
+            --main-color: rgb(221, 220, 249);
+            --main-color2: rgb(148, 166, 251);
+            --main-color3: rgb(36, 55, 147);
+        }
+
+        body {
+            background-color: #40444b;
+        }
+
+        p {
+            font-size: 15px;
+            font-weight: 400;
+            font-family: 'Tektur', cursive;
+        }
+
+        .header{
+            display: block;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-family: 'Lilita One', cursive;
+            font-size: 17px;
+            color: rgb(88, 137, 186);
+            color: white;
+            text-shadow: #2f3136 7px 7px 2px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .stats{
+            color: rgb(88, 137, 186);
+        }
+        
+        .player-image {
+            width: 15rem;
+            height: auto;
+            margin-bottom: 0.5rem;
+            /* background: rgb(112, 112, 145); */
+            padding: 15px;
+            padding-bottom: 0px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .player-search-container {
+            display: flex;
+            align-items: center;
+            /* max-width: 800px; */
+            justify-content: space-between;
+            gap: 65px;
+        }
+
+        .player-search {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .player-search input {
+            text-align: center;
+        }
+
+        .button-column {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .players-container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 800px;
+            text-align: right;
+        }
+
+        .player-column {
+            width: 30%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid #2f3136;
+            padding: 40px;
+            padding-top: 0px;
+            border-top-right-radius: 15px;
+            border-top-left-radius: 15px;
+            box-shadow: 20px 20px 6px -2px rgba(0,0,0,0.31);
+            background: linear-gradient(68.1deg, rgb(248, 205, 205) -0.3%, rgb(149, 170, 211) 100.7%);
+            /* background: radial-gradient(circle at 1.5% 1.4%, rgb(159, 227, 255) 0%, rgb(255, 177, 219) 100.2%); */
+        }
+
+        .player-column2 {
+            width: 30%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid #2f3136;
+            padding: 40px;
+            padding-top: 0px;
+            border-top-right-radius: 15px;
+            border-top-left-radius: 15px;
+            box-shadow: 20px 20px 6px -2px rgba(0,0,0,0.31);
+            /* background: linear-gradient(68.1deg, rgb(248, 205, 205) -0.3%, rgb(149, 170, 211) 100.7%); */
+            background: radial-gradient(circle at 1.5% 1.4%, rgb(159, 227, 255) 0%, rgb(255, 177, 219) 100.2%);
+        }
+
+        .player-column p {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .player-header {
+            font-family: 'Lilita One', cursive;
+            font-weight: 400;
+        }
+
+        .name {
+            font-family: 'Lilita One', cursive;
+            font-weight: 500;
+            font-size: 23px;
+            color: rgb(88, 137, 186);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .name:hover {
+            text-decoration: underline;
+            color: rgb(48, 88, 127);
+        }
+
+        .checkmark {
+            font-weight: 1000;
+            font-size: 15px;
+            color: green;
+        }
+
+        /* .background {
+            position: fixed;
+            top: 51%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            width: 20%; 
+            height: 20%; 
+            background-image: url(https://i.gifer.com/origin/18/1881d8691bd9ff18bea62c0a275e1da6_w200.gif);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain; 
+            opacity: 0.6; 
+        } */
+        
+
+        .vs-column {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .vs-label {
+            margin: 0;
+            color: rgb(255, 255, 255);
+            font-size: 35px;
+            text-shadow: rgb(0, 0, 0) 1px 1px 9px;
+            
+            font-family: 'Chela One', cursive;
+            transition: 0.2s;
+            margin: 0;
+        }
+
+        .vs-label:hover {
+            color: rgb(88, 137, 186);
+            font-size: 50px;
+            text-shadow: black 0px 0px;
+            filter: blur(1px);
+            -webkit-filter: blur(1px);
+        }
+
+        .button {
+        padding: 0.6em 1.6em;
+        border: none;
+        outline: none;
+        color: white;
+        background: #40444b;
+        cursor: pointer;
+        position: relative;
+        z-index: 0;
+        border-radius: 10px;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        font-family: 'Lilita One', cursive;
+        font-size: 15px;
+        transition: 0.4s ease;
+        }
+
+        .button:before {
+        content: "";
+        background: linear-gradient(
+            45deg,
+            #ff0000,
+            #ff7300,
+            #fffb00,
+            #48ff00,
+            #00ffd5,
+            #002bff,
+            #7a00ff,
+            #ff00c8,
+            #ff0000
+        );
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        background-size: 400%;
+        z-index: -1;
+        filter: blur(5px);
+        -webkit-filter: blur(5px);
+        width: calc(100% + 4px);
+        height: calc(100% + 4px);
+        animation: glowing-button-85 20s linear infinite;
+        transition: opacity 0.3s ease-in-out;
+        border-radius: 10px;
+        opacity: 25%;
+        }
+
+        @keyframes glowing-button-85 {
+        0% {
+            background-position: 0 0;
+        }
+        50% {
+            background-position: 400% 0;
+        }
+        100% {
+            background-position: 0 0;
+        }
+        }
+
+        /* .button:after {
+        z-index: -1;
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #ffffff;
+        left: 0;
+        top: 0;
+        border-radius: 10px;
+        } */
+
+        .button:hover {
+            font-size: 16px;
+        }
+
+        .player-image-back {
+            position: absolute;
+            width: 15rem;
+            height: auto;
+            margin-bottom: 0.5rem;
+            margin-top: 7rem;
+            /* background: rgb(112, 112, 145); */
+            padding: 15px;
+            padding-bottom: 0px;
+            z-index: 0;
+            opacity: 0.2;
+        }
+
+        .tt-menu {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-height: 200px;
+            overflow-y: auto;
+            position: absolute;
+            z-index: 1000;
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        .tt-suggestion {
+            padding: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            color: #333;
+            font-family: 'Tektur', cursive;
+            text-shadow: none;
+        }
+
+        .tt-suggestion:hover {
+            background-color: #f1f1f1;   
+            color: #007bff;         
+        }
+
+        .tt-suggestion.tt-cursor {
+            background-color: #007bff;     
+            color: white;                  
+        }
+
+    </style>
+
+</head>
+<body>
+    <div class="header">
+        <h1>NBA Player Comparison (2024-2025 Season)</h1>
+
+        <!-- Random Players Button -->
+        <!-- <form method="POST" action="{% url 'compare_players' %}">
+            {% csrf_token %}
+            <button class="button" type="submit">Compare Two Random Players</button>
+        </form> -->
+    
+        <!-- Search Form -->
+        <form method="POST" action="{% url 'compare_players' %}">
+            {% csrf_token %}
+            <!-- <button class="button" type="submit">Search Players</button> -->
+            <div class="container">
+                <div class="player-search-container">
+                    <div class="player-search">
+                        <label for="player1_name">Player 1 Name:</label>
+                        <input type="text" id="player1_name" name="player1_name" placeholder="Enter Player 1 Name" autocomplete="off">
+                    </div>
+
+                    <div class="button-column">
+                        <button class="button" type="submit">Search Players</button>
+                    </div>
+
+                    <div class="player-search"> 
+                        <label for="player2_name">Player 2 Name:</label>
+                        <input type="text" id="player2_name" name="player2_name" placeholder="Enter Player 2 Name" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+    
+    </div>
+    
+    <!-- Error Message -->
+    {% if error_message %}
+        <div style="color: red; text-align: center;">{{ error_message }}</div>
+    {% endif %}
+    
+    <!-- Player Comparison -->
+    {% if player1 and player2 %}
+    <div class="container">
+        <div class="players-container">
+            <div class="player-column">
+                <h2 class="player-header">Player 1</h2>
+                <img class="player-image" src="{{ player1.image_url }}" alt="{{ player1.name }} Image">
+                <p><a class="name" href="https://www.google.com/search?q={{ player1.name }}" target="_blank">{{ player1.name }}</a></p>
+                <p>Team: <span class="stats">{{ player1.team }}</span></p>
+                <p>Points per game: <span class="stats">{{ player1.points_per_game }}</span> {% if player1.points_per_game > player2.points_per_game %}<span class="checkmark">&#10003;</span>{% endif %}</p>
+                <p>Rebounds per game: <span class="stats">{{ player1.rebounds_per_game }}</span> {% if player1.rebounds_per_game > player2.rebounds_per_game %}<span class="checkmark">&#10003;</span>{% endif %}</p>
+                <p>Assists per game: <span class="stats">{{ player1.assists_per_game }}</span> {% if player1.assists_per_game > player2.assists_per_game %}<span class="checkmark">&#10003;</span>{% endif %}</p>
+                <p>Steals per game: <span class="stats">{{ player1.steals_per_game }}</span> {% if player1.steals_per_game > player2.steals_per_game %}<span class="checkmark">&#10003;</span>{% endif %}</p>
+                <p>Blocks per game: <span class="stats">{{ player1.blocks_per_game }}</span> {% if player1.blocks_per_game > player2.blocks_per_game %}<span class="checkmark">&#10003;</span>{% endif %}</p>
+            </div>
+            <div class="vs-column">
+                <h2 class="vs-label">VS</h2>
+            </div>
+            <div class="player-column2">
+                <h2 class="player-header">Player 2</h2>
+                <img class="player-image" src="{{ player2.image_url }}" alt="{{ player2.name }} Image">
+                <p><a class="name" href="https://www.google.com/search?q={{ player2.name }}" target="_blank">{{ player2.name }}</a></p>
+                <p>Team: <span class="stats">{{ player2.team }}</span></p>
+                <p>Points per game: <span class="stats">{{ player2.points_per_game }}</span> {% if player2.points_per_game > player1.points_per_game %}<span class="checkmark">&#10003;</span>{% endif %}</p>
+                <p>Rebounds per game: <span class="stats">{{ player2.rebounds_per_game }}</span> {% if player2.rebounds_per_game > player1.rebounds_per_game %}<span class="checkmark">&#10003;</span>{% endif %}</p>
+                <p>Assists per game: <span class="stats">{{ player2.assists_per_game }}</span> {% if player2.assists_per_game > player1.assists_per_game %}<span class="checkmark">&#10003;</span>{% endif %}</p>
+                <p>Steals per game: <span class="stats">{{ player2.steals_per_game }}</span> {% if player2.steals_per_game > player1.steals_per_game %}<span class="checkmark">&#10003;</span>{% endif %}</p>
+                <p>Blocks per game: <span class="stats">{{ player2.blocks_per_game }}</span> {% if player2.blocks_per_game > player1.blocks_per_game %}<span class="checkmark">&#10003;</span>{% endif %}</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.3.0/typeahead.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Initialize Bloodhound for player name suggestions
+            const players = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.whitespace,
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/search-players?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            // Apply Typeahead to both player inputs
+            $('#player1_name').typeahead(null, {
+                name: 'players',
+                source: players,
+                limit: 10
+            });
+
+            $('#player2_name').typeahead(null, {
+                name: 'players',
+                source: players,
+                limit: 10
+            });
+        });
+    </script>
+</body>
+</html>
