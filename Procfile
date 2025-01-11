@@ -1,1 +1,1 @@
-web: gunicorn player_comparison.wsgi
+web: gunicorn player_comparison.wsgi:application
