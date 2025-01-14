@@ -366,7 +366,7 @@
         <div class="players-container">
             <div class="player-column">
                 <h2 class="player-header">Player 1</h2>
-                <img class="player-image" src="{{ player1.image_url }}" alt="{{ player1.name }} Image">
+                <img class="player-image" src="static/images/player.png" alt="{{ player1.name }} Image">
                 <p><a class="name" href="https://www.google.com/search?q={{ player1.name }}" target="_blank">{{ player1.name }}</a></p>
                 <p>Team: <span class="stats">{{ player1.team }}</span></p>
                 <p>Points per game: <span class="stats">{{ player1.points_per_game }}</span> {% if player1.points_per_game > player2.points_per_game %}<span class="checkmark">&#10003;</span>{% endif %}</p>
@@ -380,7 +380,7 @@
             </div>
             <div class="player-column2">
                 <h2 class="player-header">Player 2</h2>
-                <img class="player-image" src="{{ player2.image_url }}" alt="{{ player2.name }} Image">
+                <img class="player-image" src="static/images/player.png" alt="{{ player2.name }} Image">
                 <p><a class="name" href="https://www.google.com/search?q={{ player2.name }}" target="_blank">{{ player2.name }}</a></p>
                 <p>Team: <span class="stats">{{ player2.team }}</span></p>
                 <p>Points per game: <span class="stats">{{ player2.points_per_game }}</span> {% if player2.points_per_game > player1.points_per_game %}<span class="checkmark">&#10003;</span>{% endif %}</p>
